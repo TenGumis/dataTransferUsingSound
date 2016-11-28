@@ -30,7 +30,7 @@ msg='tmp'
 if len(sys.argv)>=3:
     t=int(sys.argv[1])
     f0=int(sys.argv[2])
-    f2=int(sys.argv[3])
+    f1=int(sys.argv[3])
 
 bb={}
 bb['']=''
@@ -163,7 +163,7 @@ with pa.simple.open(direction=pa.STREAM_PLAYBACK, format=sample_map[sampwidth], 
             continue
         frm=line[0]
         to=line[1]
-        msg=line[2]
+        msg=' '.join(line[2:])
         message=convert(frm,to,msg)
         for i in message:
             player.write(frame(i))

@@ -133,29 +133,20 @@ def getMsgLen(K):
 
 def decode(K):
     if (len(K)>=18*8):
-        #P=K[:8*8]
-        #if(P != ('10'*31 + '11') ):
-        #    return None
-        #K=K[8*8:]
         K=nrz1(K)
         while (len(K)%5 != 0):
             K=K[:-1]            
-            #return None
         K=BB2(K)
 	    B=K[:8*6]
 	    A=K[8*6:8*6*2]
 	    L=K[8*6*2:8*6*2+8*2]
 	    L=bintodec(L)
-	    if(len(K)!=(18+L)*8):        
-            pass
-            #return None
 	    M=K[8*6*2+8*2:8*6*2+8*2+8*L]
 	    S=K[8*6*2+8*2+8*L:8*6*2+8*2+8*L+8*4]
 	    if((binascii.crc32(bitarray(K[:8*6*2+8*2+8*L]))&0xffffffff)!=bintodec(S)):
 		    return None
 	    TMP=''
 	    for i in range(L):
-		    #print(chr(bintodec(M[i*8:(i+1)*8])))
 		    TMP+=chr(bintodec(M[i*8:(i+1)*8]))
 	    M=TMP
 	    A=bintodec(A)
